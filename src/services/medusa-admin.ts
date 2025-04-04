@@ -34,7 +34,7 @@ export default class MedusaStoreService {
             })
             .then((res) => {
                 this.adminToken = res.toString();
-                console.log("Logged in as admin");
+                console.error("Logged in as admin");
             })
             .catch((err) => {
                 console.error("Error logging in", err);

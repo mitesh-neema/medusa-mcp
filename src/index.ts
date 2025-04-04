@@ -6,11 +6,11 @@ import MedusaAdminService from "./services/medusa-admin";
 async function main(): Promise<void> {
     console.error("Starting Medusa Store MCP Server...");
     const medusaStoreService = new MedusaStoreService();
-    // const medusaAdminService = new MedusaAdminService();
+    const medusaAdminService = new MedusaAdminService();
 
     const tools = [
-        ...medusaStoreService.defineTools()
-        //     ...medusaAdminService.defineTools()
+        ...medusaStoreService.defineTools(),
+        ...medusaAdminService.defineTools()
     ];
 
     const server = new McpServer(
