@@ -55,6 +55,8 @@ The server will be available at `http://localhost:3000` by default.
 
 In the oas folder your can replace admin.json with your admin.json and similary store.json with your store.json 
 alternatively , you can fork it make it your custom mcp server. 
+Use this medusa-oas-cli[https://www.npmjs.com/package/@medusajs/medusa-oas-cli] to generate the JSON files. 
+
 
 ## Contributing
 
