@@ -1,12 +1,15 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import MedusaStoreService from "./services/medusa-store";
+import MedusaAdminService from "./services/medusa-admin";
 
 async function main() {
     console.error("Starting Medusa Store MCP Server...");
-    const medusaStoreService = new MedusaStoreService();
-    
-    const tools = medusaStoreService.defineTools();
+    const medusaStoreService = new MedusaStoreService();                      
+    const medusaAdminService = new MedusaAdminService();
+
+    const tools = [...medusaStoreService.defineTools(),
+        ...medusaAdminService.defineTools()];
 
     const server = new McpServer(
         {
