@@ -35,9 +35,7 @@ MCP servers allow AI agents to:
 
 ---
 
-## 🧠 Architecture Diagram
 
-Here's how the `medusa-mcp` server fits into a typical setup with Medusa JS and external systems:
 
 
 > Replace `admin.json` and `store.json` with your own OAS definitions for fine-grained control.
@@ -111,7 +109,9 @@ Server runs at: [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## Architecture
+## 🧠 Architecture Diagram
+
+Here's how the `medusa-mcp` server fits into a typical setup with Medusa JS and external systems:
 
 ```
 
