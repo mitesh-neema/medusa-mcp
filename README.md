@@ -111,44 +111,46 @@ Server runs at: [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## Architecture
+## architecture
 
-                                                  +-------------------------+
-                                                  |     AI Assistant /      |
-                                                  |     LLM / Automation    |
-                                                  +-----------+-------------+
-                                                              |
-                                                              v
-                                                +--------------+--------------+
-                                                |     MCP Server (medusa-mcp) |
-                                                |-----------------------------|
-                                                | - JSON-RPC Communication    |
-                                                | - AI-Ready Interface        |
-                                                | - Plugin Support            |
-                                                +--------------+--------------+
-                                                               |
-                                                               |
-                                                               |
-                                                               v
-+--------------+                                       +-------+-----------+
-| Medusa Admin |<---- Admin API (oas/admin.json)----> | Medusa Backend     |
-| Dashboard    |                                      | (Products, Orders) |
-+--------------+                                       +-------------------+
-        |                                                         |  
-        |                                                         |
-        |                                                         v
-        |                                                +--------------+
-        |                                                | Medusa Store |
-        |                                                | Frontend     |
-        |                                                +--------------+
-        |                                                        |
-        |                                                        |
-        |                                                        |
-        |                 +-------------------------+            | 
-        ----------------> | External Services / API | <-------------
-                          | (e.g., Payments, Email) |
-                          +-------------------------+
+```
 
+    +-------------------------+
+    |     AI Assistant /      |
+    |     LLM / Automation    |
+    +-----------+-------------+
+                |
+                v
+    +--------------+--------------+
+    |     MCP Server (medusa-mcp) |
+    |-----------------------------|
+    | - JSON-RPC Communication     |
+    | - AI-Ready Interface         |
+    | - Plugin Support             |
+    +------+----------------------+
+                    |                             
+                    +
+                    |                                                         
+                    v                                                         
+        +-------------------+
+        | Medusa Backend     |
+        | (Products, Orders) |
+        +-------------------+
+                    |
+                    |
+                    v
+            +--------------+
+            | Medusa Store |
+            | Frontend     |
+            +--------------+
+                    |
+                    |
+                    v
+        +-------------------------+
+        | External Services / API |
+        | (e.g., Payments, Email) |
+        +-------------------------+
+```
 
 
 ## 🧪 Customization
