@@ -39,7 +39,6 @@ MCP servers allow AI agents to:
 
 Here's how the `medusa-mcp` server fits into a typical setup with Medusa JS and external systems:
 
-![medusa-mcp architecture](./A_diagram_in_the_image_illustrates_the_architectur.png)
 
 > Replace `admin.json` and `store.json` with your own OAS definitions for fine-grained control.
 
@@ -111,6 +110,46 @@ npx @modelcontextprotocol/inspector ./dist/index.js
 Server runs at: [http://localhost:3000](http://localhost:3000)
 
 ---
+
+## Architecture
+
+                                                  +-------------------------+
+                                                  |     AI Assistant /      |
+                                                  |     LLM / Automation    |
+                                                  +-----------+-------------+
+                                                              |
+                                                              v
+                                                +--------------+--------------+
+                                                |     MCP Server (medusa-mcp) |
+                                                |-----------------------------|
+                                                | - JSON-RPC Communication    |
+                                                | - AI-Ready Interface        |
+                                                | - Plugin Support            |
+                                                +--------------+--------------+
+                                                               |
+                                                               |
+                                                               |
+                                                               v
++--------------+                                       +-------+-----------+
+| Medusa Admin |<---- Admin API (oas/admin.json)----> | Medusa Backend     |
+| Dashboard    |                                      | (Products, Orders) |
++--------------+                                       +-------------------+
+        |                                                         |  
+        |                                                         |
+        |                                                         v
+        |                                                +--------------+
+        |                                                | Medusa Store |
+        |                                                | Frontend     |
+        |                                                +--------------+
+        |                                                        |
+        |                                                        |
+        |                                                        |
+        |                 +-------------------------+            | 
+        ----------------> | External Services / API | <-------------
+                          | (e.g., Payments, Email) |
+                          +-------------------------+
+
+
 
 ## 🧪 Customization
 
