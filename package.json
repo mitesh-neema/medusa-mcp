@@ -1,7 +1,8 @@
 {
-  "name": "medusa-mcp",
+  "name": "@sgftech/medusa-mcp",
   "version": "1.0.0",
   "main": "index.js",
+  "private":"false",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
@@ -11,7 +12,14 @@
     "dev:inspector":  "npx @modelcontextprotocol/inspector node dist/index.js" 
   },
   "keywords": [],
-  "author": "",
+  "author": {
+    "name": "govind diwakar",
+    "email": "sgf@sourcegoodfood.com"
+  },
+  "repository": {
+    "type": "git",
+    "url":"https://github.com/SGFGOV/medusa-mcp.git"
+  },
   "license": "ISC",
   "description": "",
   "dependencies": {

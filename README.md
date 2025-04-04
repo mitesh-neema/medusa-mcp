@@ -38,8 +38,23 @@ or test with
 npx @modelcontextprotocol/inspector .\dist\index.js
 ```
 
+Remember to restart the inspector and launch a new browser after every build
+
+## Environment variables:
+
+MEDUSA_BACKEND_URL=<Your medusa backend url>
+PUBLISHABLE_KEY=<Your publishable api key>
+
+### for admin
+MEDUSA_USERNAME=<Your medusa admin username>
+MEDUSA_PASSWORD=<Your medusa admin password>
 
 The server will be available at `http://localhost:3000` by default.
+
+### customerizing the server
+
+In the oas folder your can replace admin.json with your admin.json and similary store.json with your store.json 
+alternatively , you can fork it make it your custom mcp server. 
 
 ## Contributing
 

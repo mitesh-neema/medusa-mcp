@@ -1,7 +1,7 @@
 import Medusa from "@medusajs/js-sdk";
 import { config } from "dotenv";
 import { z, ZodTypeAny } from "zod";
-import store from "../oas/store.json";
+import storeJson from "../oas/store.json";
 import { SdkRequestType, StoreJson, Parameter } from "../types/store-json";
 import { defineTool, InferToolHandlerInput } from "../utils/define-tools";
 import { StoreProductListResponse } from "@medusajs/types";
@@ -128,7 +128,7 @@ export default class MedusaStoreService {
         });
     }
 
-    defineTools(): any[] {
+    defineTools(store = storeJson): any[] {
         const paths = Object.entries(store.paths) as [string, SdkRequestType][];
         const tools = paths.map(([path, refFunction]) =>
             this.wrapPath(path, refFunction)

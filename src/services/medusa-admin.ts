@@ -1,7 +1,7 @@
 import Medusa from "@medusajs/js-sdk";
 import { config } from "dotenv";
 import { z, ZodTypeAny } from "zod";
-import admin from "../oas/admin.json";
+import adminJson from "../oas/admin.json";
 import { SdkRequestType, Parameter } from "../types/admin-json";
 import { defineTool, InferToolHandlerInput } from "../utils/define-tools";
 import { StoreProductListResponse } from "@medusajs/types";
@@ -138,7 +138,7 @@ export default class MedusaAdminService {
         });
     }
 
-    defineTools(): any[] {
+    defineTools(admin = adminJson): any[] {
         const paths = Object.entries(admin.paths) as [string, SdkRequestType][];
         const tools = paths.map(([path, refFunction]) =>
             this.wrapPath(path, refFunction)
