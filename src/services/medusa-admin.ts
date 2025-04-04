@@ -112,7 +112,7 @@ export default class MedusaStoreService {
                             headers: {
                                 "Content-Type": "application/json",
                                 "Accept": "application/json",
-                                "Authorization": `Bearer ${process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY}`
+                                "Authorization": `Bearer ${this.adminToken}`
                             },
                             query
                         });

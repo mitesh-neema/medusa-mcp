@@ -32,7 +32,7 @@ async function main() {
     console.error("Connecting server to transport...");
     await server.connect(transport);
 
-    console.error("ClickUp MCP Server running on stdio");
+    console.error("Medusajs MCP Server running on stdio");
 }
 
 main().catch((error) => {
