@@ -115,41 +115,41 @@ Server runs at: [http://localhost:3000](http://localhost:3000)
 
 ```
 
-    +-------------------------+
-    |     AI Assistant /      |
-    |     LLM / Automation    |
-    +-----------+-------------+
-                |
-                v
+       +-------------------------+
+       |     AI Assistant /      |
+       |     LLM / Automation    |
+       +-----------+-------------+
+                   |
+                   v
     +--------------+--------------+
     |     MCP Server (medusa-mcp) |
     |-----------------------------|
-    | - JSON-RPC Communication     |
-    | - AI-Ready Interface         |
-    | - Plugin Support             |
+    | - JSON-RPC Communication    |
+    | - AI-Ready Interface        |
+    | - Plugin Support            |
     +------+----------------------+
-                    |                             
-                    +
-                    |                                                         
-                    v                                                         
-        +-------------------+
-        | Medusa Backend     |
-        | (Products, Orders) |
-        +-------------------+
-                    |
-                    |
-                    v
-            +--------------+
-            | Medusa Store |
-            | Frontend     |
-            +--------------+
-                    |
-                    |
-                    v
-        +-------------------------+
-        | External Services / API |
-        | (e.g., Payments, Email) |
-        +-------------------------+
+                   |                             
+                   +
+                   |                                                         
+                   v                                                         
+         +-------------------+
+         | Medusa Backend    |
+         | (Products, Orders)|
+         +-------------------+
+                   |
+                   |
+                   v
+           +--------------+
+           | Medusa Store |
+           | Frontend     |
+           +--------------+
+                   |
+                   |
+                   v
+      +-------------------------+
+      | External Services / API |
+      | (e.g., Payments, Email) |
+      +-------------------------+
 ```
 
 
