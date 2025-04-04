@@ -16,7 +16,7 @@ const MEDUSA_PASSWORD = process.env.MEDUSA_PASSWORD ?? "medusa_pass";
 
 export default class MedusaStoreService {
     sdk: Medusa;
-    adminToken:string = "";
+    adminToken = "";
     constructor() {
         this.sdk = new Medusa({
             baseUrl: MEDUSA_BACKEND_URL,
@@ -27,17 +27,18 @@ export default class MedusaStoreService {
             }
         });
 
-        this.sdk.auth.login("user","emailpass",{
-            email: MEDUSA_USERNAME,
-            password: MEDUSA_PASSWORD
-        }).then((res) => {
-                this.adminToken =  res.toString();
+        this.sdk.auth
+            .login("user", "emailpass", {
+                email: MEDUSA_USERNAME,
+                password: MEDUSA_PASSWORD
+            })
+            .then((res) => {
+                this.adminToken = res.toString();
                 console.log("Logged in as admin");
-                     
-        }).catch((err) => {
-            console.error("Error logging in", err);
-        })
-
+            })
+            .catch((err) => {
+                console.error("Error logging in", err);
+            });
     }
 
     wrapPath(refPath: string, refFunction: SdkRequestType) {
@@ -50,16 +51,24 @@ export default class MedusaStoreService {
                 method = "get";
                 name = refFunction.get.operationId;
                 description = refFunction.get.description;
-                parameters = (refFunction.get.parameters?? "") as any;
+                parameters = (refFunction.get.parameters ?? "") as any;
             } else if ("post" in refFunction) {
                 method = "post";
                 name = refFunction.post.operationId;
                 description = refFunction.post.description;
                 parameters = refFunction.post.parameters ?? [];
+            } else if ("delete" in refFunction) {
+                method = "delete";
+                name = (refFunction.delete as any).operationId;
+                description = (refFunction.delete as any).description;
+                parameters = (refFunction.delete as any).parameters ?? [];
+            }
+            if (!name) {
+                throw new Error("No name found for path: " + refPath);
             }
             return {
-                name: name,
-                description: description,
+                name: `Admin${name}`,
+                description: `This tool helps store administors. ${description}`,
                 inputSchema: {
                     ...parameters
                         .filter((p) => p.in != "header")
@@ -134,7 +143,7 @@ export default class MedusaStoreService {
         });
     }
 
-    defineTools():any[] {
+    defineTools(): any[] {
         const paths = Object.entries(admin.paths) as [string, SdkRequestType][];
         const tools = paths.map(([path, refFunction]) =>
             this.wrapPath(path, refFunction)

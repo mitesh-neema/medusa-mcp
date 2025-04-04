@@ -44,8 +44,12 @@ export default class MedusaStoreService {
                 description = refFunction.post.description;
                 parameters = refFunction.post.parameters ?? [];
             }
+            if (!name) {
+                throw new Error("No name found for the function");
+            }
+
             return {
-                name: name,
+                name: name!,
                 description: description,
                 inputSchema: {
                     ...parameters

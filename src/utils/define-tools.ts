@@ -1,5 +1,6 @@
-import { z, ZodType } from "zod";
-import { CallToolResult, RequestHandlerExtra } from "@modelcontextprotocol/sdk";
+import { z, ZodAny, ZodType } from "zod";
+import { RequestHandlerExtra } from "@modelcontextprotocol/sdk/shared/protocol.js";
+import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 
 export type ToolDefinition<T, R extends ZodType, O> = {
     name: string;
@@ -12,11 +13,13 @@ export type InferToolHandlerInput<T, X extends ZodType> = {
     [K in keyof T]: z.infer<X>;
 };
 
-export const defineTool = (cb: (zod: typeof z) => ToolDefinition) => {
+export const defineTool = (
+    cb: (zod: typeof z) => ToolDefinition<any, ZodAny, any>
+) => {
     const tool = cb(z);
 
     const wrappedHandler = async (
-        input: InferToolHandlerInput<string, Zod.ZodString>,
+        input: InferToolHandlerInput<Zod.ZodAny, Zod.ZodAny>,
         _: RequestHandlerExtra
     ): Promise<{
         content: CallToolResult["content"];
