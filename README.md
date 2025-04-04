@@ -18,6 +18,13 @@ To install the project, clone the repository and run the following commands:
 npm install
 ```
 
+```
+npm build
+```
+
+
+
+
 ## Usage
 
 Start the server with:
@@ -25,6 +32,12 @@ Start the server with:
 ```bash
 npm start
 ```
+
+or test with
+```
+npx @modelcontextprotocol/inspector .\dist\index.js
+```
+
 
 The server will be available at `http://localhost:3000` by default.
 

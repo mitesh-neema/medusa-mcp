@@ -7,11 +7,18 @@ async function main(): Promise<void> {
     console.error("Starting Medusa Store MCP Server...");
     const medusaStoreService = new MedusaStoreService();
     const medusaAdminService = new MedusaAdminService();
+    let tools = [];
+    try {
+        await medusaAdminService.init();
 
-    const tools = [
-        ...medusaStoreService.defineTools(),
-        ...medusaAdminService.defineTools()
-    ];
+        tools = [
+            ...medusaStoreService.defineTools(),
+            ...medusaAdminService.defineTools()
+        ];
+    } catch (error) {
+        console.error("Error initializing Medusa Admin Services:", error);
+        tools = [...medusaStoreService.defineTools()];
+    }
 
     const server = new McpServer(
         {

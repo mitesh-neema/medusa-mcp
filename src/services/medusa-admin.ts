@@ -14,7 +14,7 @@ const MEDUSA_BACKEND_URL =
 const MEDUSA_USERNAME = process.env.MEDUSA_USERNAME ?? "medusa_user";
 const MEDUSA_PASSWORD = process.env.MEDUSA_PASSWORD ?? "medusa_pass";
 
-export default class MedusaStoreService {
+export default class MedusaAdminService {
     sdk: Medusa;
     adminToken = "";
     constructor() {
@@ -26,19 +26,14 @@ export default class MedusaStoreService {
                 type: "jwt"
             }
         });
+    }
 
-        this.sdk.auth
-            .login("user", "emailpass", {
-                email: MEDUSA_USERNAME,
-                password: MEDUSA_PASSWORD
-            })
-            .then((res) => {
-                this.adminToken = res.toString();
-                console.error("Logged in as admin");
-            })
-            .catch((err) => {
-                console.error("Error logging in", err);
-            });
+    async init(): Promise<void> {
+        const res = await this.sdk.auth.login("user", "emailpass", {
+            email: MEDUSA_USERNAME,
+            password: MEDUSA_PASSWORD
+        });
+        this.adminToken = res.toString();
     }
 
     wrapPath(refPath: string, refFunction: SdkRequestType) {

@@ -98,6 +98,9 @@ export default class MedusaStoreService {
                         {} as Record<string, any>
                     );
                     if (method === "get") {
+                        console.error(
+                            `Fetching ${refPath} with GET ${query.toString()}`
+                        );
                         const response = await this.sdk.client.fetch(refPath, {
                             method: method,
                             headers: {
@@ -105,7 +108,7 @@ export default class MedusaStoreService {
                                 "Accept": "application/json",
                                 "Authorization": `Bearer ${process.env.PUBLISHABLE_KEY}`
                             },
-                            query
+                            query: query
                         });
                         return response;
                     } else {
