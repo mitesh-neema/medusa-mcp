@@ -1,9 +1,9 @@
-# medusa-mcp
+# Medusa-mcp
 ## Overview
 
 The `medusa-mcp` project serves as a Model Context Protocol (MCP) server for the Medusa JavaScript SDK. It provides a robust and scalable backend solution to manage and interact with Medusa's data models efficiently.
 
-# What is an MCP server
+## What is an MCP server
 
 An MCP server refers to a Modular Communication Protocol server or similar systems that facilitate communication, data processing, and service orchestration across diverse computing environments. It is designed as a modular, scalable, and secure platform that supports inter-application communication, real-time service orchestration, and integration with external tools or systems. MCP servers are commonly used in industries such as AI development, industrial control systems, and enterprise-level integrations.
 
@@ -38,7 +38,7 @@ Industrial IoT, enabling efficient communication between devices and systems.
 
 In essence, MCP servers are powerful frameworks for building adaptable and efficient software architectures, particularly in environments requiring robust communication and real-time data processing.
 
-# Medusa JS and MCP
+## Medusa JS and MCP
 
 Integrating MCP into MedusaJS can enhance its capabilities by enabling seamless third-party integrations, automating workflows with AI orchestration, simplifying customization, and providing intelligent insights—all while maintaining scalability and consistency across its architecture.
 
