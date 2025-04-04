@@ -28,7 +28,7 @@ export default class MedusaStoreService {
     }
 
     wrapPath(refPath: string, refFunction: SdkRequestType) {
-        return defineTool((z) => {
+        return defineTool((z): any => {
             let name;
             let description;
             let parameters: Parameter[] = [];

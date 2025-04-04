@@ -2,6 +2,8 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "NodeNext",
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
     "moduleResolution": "NodeNext",
     "resolveJsonModule": true,
     "esModuleInterop": true,
