@@ -38,7 +38,7 @@ MCP servers allow AI agents to:
 
 
 
-> Replace `admin.json` and `store.json` with your own OAS definitions for fine-grained control.
+
 
 ---
 
@@ -156,6 +156,8 @@ Here's how the `medusa-mcp` server fits into a typical setup with Medusa JS and 
 ## 🧪 Customization
 
 To tailor the server to your Medusa setup:
+
+> Replace `admin.json` and `store.json` with your own OAS definitions for fine-grained control.
 
 - Replace the OpenAPI schemas in the `oas/` folder:
   - `admin.json` – Admin endpoints
