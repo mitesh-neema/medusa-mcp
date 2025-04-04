@@ -7,7 +7,7 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
-    "inspector": "mcp-inspector clickup"
+    "inspector": "mcp-inspector m"
   },
   "keywords": [],
   "author": "",

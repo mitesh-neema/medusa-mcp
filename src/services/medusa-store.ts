@@ -13,11 +13,14 @@ const MEDUSA_BACKEND_URL =
 
 export default class MedusaStoreService {
     sdk: Medusa;
-    constructor() {
+    constructor(
+        medusaBackendUrl: string = MEDUSA_BACKEND_URL,
+        apiKey: string = process.env.PUBLISHABLE_KEY ?? ""
+    ) {
         this.sdk = new Medusa({
-            baseUrl: MEDUSA_BACKEND_URL,
+            baseUrl: medusaBackendUrl ?? MEDUSA_BACKEND_URL,
             debug: process.env.NODE_ENV === "development",
-            publishableKey: process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY,
+            publishableKey: apiKey ?? process.env.PUBLISHABLE_KEY,
             auth: {
                 type: "session"
             }
@@ -96,7 +99,7 @@ export default class MedusaStoreService {
                             headers: {
                                 "Content-Type": "application/json",
                                 "Accept": "application/json",
-                                "Authorization": `Bearer ${process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY}`
+                                "Authorization": `Bearer ${process.env.PUBLISHABLE_KEY}`
                             },
                             query
                         });
@@ -107,7 +110,7 @@ export default class MedusaStoreService {
                             headers: {
                                 "Content-Type": "application/json",
                                 "Accept": "application/json",
-                                "Authorization": `Bearer ${process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY}`
+                                "Authorization": `Bearer ${process.env.PUBLISHABLE_KEY}`
                             },
                             body: JSON.stringify(body)
                         });

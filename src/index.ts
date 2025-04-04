@@ -5,6 +5,7 @@ import MedusaStoreService from "./services/medusa-store";
 async function main() {
     console.error("Starting Medusa Store MCP Server...");
     const medusaStoreService = new MedusaStoreService();
+    
     const tools = medusaStoreService.defineTools();
 
     const server = new McpServer(
