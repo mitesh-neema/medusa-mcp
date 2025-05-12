@@ -4,7 +4,6 @@ import { z, ZodTypeAny } from "zod";
 import storeJson from "../oas/store.json";
 import { SdkRequestType, StoreJson, Parameter } from "../types/store-json";
 import { defineTool, InferToolHandlerInput } from "../utils/define-tools";
-import { StoreProductListResponse } from "@medusajs/types";
 
 config();
 
@@ -83,7 +82,33 @@ export default class MedusaStoreService {
                 handler: async (
                     input: InferToolHandlerInput<any, ZodTypeAny>
                 ): Promise<any> => {
-                    const query = new URLSearchParams(input);
+                    // Process path parameters
+                    let processedPath = refPath;
+                    const pathParams = parameters.filter(p => p.in === "path");
+                    
+                    // Replace path parameters with actual values
+                    pathParams.forEach(param => {
+                        if (input[param.name]) {
+                            const paramPlaceholder = `{${param.name}}`;
+                            processedPath = processedPath.replace(paramPlaceholder, input[param.name]);
+                            console.error(`Replaced path parameter ${param.name}: ${paramPlaceholder} -> ${input[param.name]}`);
+                        } else if (pathParams.length > 0) {
+                            console.error(`Warning: Path parameter ${param.name} not provided in input for path ${refPath}`);
+                        }
+                    });
+                    
+                    if (refPath !== processedPath) {
+                        console.error(`Path transformation: ${refPath} -> ${processedPath}`);
+                    }
+
+                    // Process query and body parameters
+                    const queryParams = parameters.filter(p => p.in === "query");
+                    const query = new URLSearchParams();
+                    queryParams.forEach(param => {
+                        if (input[param.name] !== undefined) {
+                            query.append(param.name, input[param.name]);
+                        }
+                    });
                     const body = Object.entries(input).reduce(
                         (acc, [key, value]) => {
                             if (
@@ -97,11 +122,12 @@ export default class MedusaStoreService {
                         },
                         {} as Record<string, any>
                     );
+                    
                     if (method === "get") {
                         console.error(
-                            `Fetching ${refPath} with GET ${query.toString()}`
+                            `Fetching ${processedPath} with GET ${query.toString()}`
                         );
-                        const response = await this.sdk.client.fetch(refPath, {
+                        const response = await this.sdk.client.fetch(processedPath, {
                             method: method,
                             headers: {
                                 "Content-Type": "application/json",
@@ -112,7 +138,7 @@ export default class MedusaStoreService {
                         });
                         return response;
                     } else {
-                        const response = await this.sdk.client.fetch(refPath, {
+                        const response = await this.sdk.client.fetch(processedPath, {
                             method: method,
                             headers: {
                                 "Content-Type": "application/json",

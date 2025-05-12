@@ -4,7 +4,6 @@ import { z, ZodTypeAny } from "zod";
 import adminJson from "../oas/admin.json";
 import { SdkRequestType, Parameter } from "../types/admin-json";
 import { defineTool, InferToolHandlerInput } from "../utils/define-tools";
-import { StoreProductListResponse } from "@medusajs/types";
 
 config();
 
@@ -13,6 +12,15 @@ const MEDUSA_BACKEND_URL =
 
 const MEDUSA_USERNAME = process.env.MEDUSA_USERNAME ?? "medusa_user";
 const MEDUSA_PASSWORD = process.env.MEDUSA_PASSWORD ?? "medusa_pass";
+
+console.log(
+    "Medusa backend url: ",
+    MEDUSA_BACKEND_URL,
+    "Medusa username: ",
+    MEDUSA_USERNAME,
+    "Medusa password: ",
+    MEDUSA_PASSWORD
+);
 
 export default class MedusaAdminService {
     sdk: Medusa;
@@ -96,7 +104,33 @@ export default class MedusaAdminService {
                 handler: async (
                     input: InferToolHandlerInput<any, ZodTypeAny>
                 ): Promise<any> => {
-                    const query = new URLSearchParams(input);
+                    // Process path parameters
+                    let processedPath = refPath;
+                    const pathParams = parameters.filter(p => p.in === "path");
+                    
+                    // Replace path parameters with actual values
+                    pathParams.forEach(param => {
+                        if (input[param.name]) {
+                            const paramPlaceholder = `{${param.name}}`;
+                            processedPath = processedPath.replace(paramPlaceholder, input[param.name]);
+                            console.error(`Replaced path parameter ${param.name}: ${paramPlaceholder} -> ${input[param.name]}`);
+                        } else if (pathParams.length > 0) {
+                            console.error(`Warning: Path parameter ${param.name} not provided in input for path ${refPath}`);
+                        }
+                    });
+                    
+                    if (refPath !== processedPath) {
+                        console.error(`Path transformation: ${refPath} -> ${processedPath}`);
+                    }
+
+                    // Process query and body parameters
+                    const queryParams = parameters.filter(p => p.in === "query");
+                    const query = new URLSearchParams();
+                    queryParams.forEach(param => {
+                        if (input[param.name] !== undefined) {
+                            query.append(param.name, input[param.name]);
+                        }
+                    });
                     const body = Object.entries(input).reduce(
                         (acc, [key, value]) => {
                             if (
@@ -110,8 +144,9 @@ export default class MedusaAdminService {
                         },
                         {} as Record<string, any>
                     );
+
                     if (method === "get") {
-                        const response = await this.sdk.client.fetch(refPath, {
+                        const response = await this.sdk.client.fetch(processedPath, {
                             method: method,
                             headers: {
                                 "Content-Type": "application/json",
@@ -122,7 +157,7 @@ export default class MedusaAdminService {
                         });
                         return response;
                     } else {
-                        const response = await this.sdk.client.fetch(refPath, {
+                        const response = await this.sdk.client.fetch(processedPath, {
                             method: method,
                             headers: {
                                 "Content-Type": "application/json",
